@@ -1,0 +1,52 @@
+{
+  "name": "async-reactor-ts",
+  "description": "Render async Stateless Functional Components in React",
+  "main": "dist/cjs/index.js",
+  "module": "dist/es/index.js",
+  "source": "src/index.ts",
+  "types": "dist/types/index.d.ts",
+  "repository": "git@github.com:ovotech/async-reactor-ts.git",
+  "author": "Ivan Kerin <ikerin@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "build-cjs": "tsc --outDir dist/cjs/",
+    "build-es": "tsc --outDir dist/es/ --module esnext --declaration --declarationDir dist/types/",
+    "build": "yarn build-cjs && yarn build-es"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-dom": "*"
+  },
+  "devDependencies": {
+    "@types/enzyme": "^3.1.11",
+    "@types/enzyme-adapter-react-16": "^1.0.2",
+    "@types/jest": "^23.1.6",
+    "@types/react": "^16.4.6",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "jest": "^23.4.1",
+    "prettier": "^1.13.7",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "ts-jest": "^23.0.0",
+    "tslint": "^5.10.0",
+    "typescript": "^2.9.2"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": ".*(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "setupTestFrameworkScriptFile": "./test/setup.ts"
+  }
+}
