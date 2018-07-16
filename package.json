@@ -1,5 +1,5 @@
 {
-  "name": "async-reactor-ts",
+  "name": "@ovotech/async-reactor-ts",
   "description": "Render async Stateless Functional Components in React, using Typescript",
   "main": "dist/cjs/index.js",
   "module": "dist/es/index.js",
@@ -49,5 +49,6 @@
       "node"
     ],
     "setupTestFrameworkScriptFile": "./test/setup.ts"
-  }
+  },
+  "version": "0.1.0"
 }

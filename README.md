@@ -14,7 +14,7 @@ It has peer dependencies of "react" and "react-dom"
 
 ```js
 import * as React from 'react';
-import { asyncReactor } from 'async-reactor-ts';
+import { asyncReactor } from '@ovotech/async-reactor-ts';
 
 const Loading = () => <div>Loading</div>;
 
@@ -34,7 +34,7 @@ You can pass a component to handle error state from the loader component.
 
 ```js
 import * as React from 'react';
-import { asyncReactor } from 'async-reactor-ts';
+import { asyncReactor } from '@ovotech/async-reactor-ts';
 
 const Loading = () => <div>Loading</div>;
 const ErrorScreen = ({ error }) => <div>Error {error.message}</div>;
@@ -51,7 +51,7 @@ const Home = asyncReactor(HomeLoader, Loading, ErrorScreen);
 
 ```js
 import * as React from 'react';
-import { asyncReactor } from 'async-reactor';
+import { asyncReactor } from '@ovotech/async-reactor';
 
 const Loading = () => <div>Loading</div>;
 
