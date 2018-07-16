@@ -26,6 +26,8 @@ const HomeLoader = async () => {
 const Home = asyncReactor(HomeLoader, Loading);
 ```
 
+The returned value `Home` is a regular `React.Component`.
+
 ## Handle errors
 
 You can pass a component to handle error state from the loader component.
@@ -44,8 +46,6 @@ const HomeLoader = async () => {
 
 const Home = asyncReactor(HomeLoader, Loading, ErrorScreen);
 ```
-
-The returned value is a regular `Component`.
 
 #### Example using fetch
 
