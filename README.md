@@ -1,6 +1,6 @@
 # async-reactor
 
-Render async Stateless Functional Components
+Render async Stateless Functional Components, using Typescript
 
 ## Installation
 
