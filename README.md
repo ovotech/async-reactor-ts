@@ -14,55 +14,70 @@ It has peer dependencies of "react" and "react-dom"
 
 ```js
 import * as React from 'react';
-import { asyncReactor } from '@ovotech/async-reactor-ts';
+import { AsyncReactor } from '@ovotech/async-reactor-ts';
 
-const Loading = () => <div>Loading</div>;
+const Home = (
+  <AsyncReactor loader={() => someAsnycStuff()}>
+    {({ loading, result }) => {
+      if (loading) {
+        return <div>Loading</div>;
+      }
 
-const HomeLoader = async () => {
-  await someAsnycStuff();
-  return <div>Home Screen</div>;
-};
-
-const Home = asyncReactor(HomeLoader, Loading);
+      return <div>Home Screen {result}</div>;
+    }}
+  </AsyncReactor>
+);
 ```
 
-The returned value `Home` is a regular `React.Component`.
+You'll receive the result of the async loader call in the "result" prop
 
 ## Handle errors
 
-You can pass a component to handle error state from the loader component.
+If there is an error in the loader, you will receive it as an "error" prop
 
 ```js
 import * as React from 'react';
-import { asyncReactor } from '@ovotech/async-reactor-ts';
+import { AsyncReactor } from '@ovotech/async-reactor-ts';
 
-const Loading = () => <div>Loading</div>;
-const ErrorScreen = ({ error }) => <div>Error {error.message}</div>;
+const Home = (
+  <AsyncReactor loader={() => someAsnycStuff()}>
+    {({ loading, error }) => {
+      if (loading) {
+        return <div>Loading</div>;
+      }
 
-const HomeLoader = async () => {
-  await someAsnycStuff();
-  return <div>Home Screen</div>;
-};
+      if (error) {
+        return <div>Error {error.message}</div>;
+      }
 
-const Home = asyncReactor(HomeLoader, Loading, ErrorScreen);
+      return <div>Home Screen</div>;
+    }}
+  </AsyncReactor>
+);
 ```
 
 #### Example using fetch
 
 ```js
 import * as React from 'react';
-import { asyncReactor } from '@ovotech/async-reactor';
+import { AsyncReactor } from '@ovotech/async-reactor-ts';
 
-const Loading = () => <div>Loading</div>;
+const Home = (
+  <AsyncReactor
+    loader={async () => {
+      const data = await fetch('https://jsonplaceholder.typicode.com/posts');
+      return await data.json();
+    }}
+  >
+    {({ loading, result }) => {
+      if (loading) {
+        return <div>Loading</div>;
+      }
 
-const AsyncPosts = async () => {
-  const data = await fetch('https://jsonplaceholder.typicode.com/posts');
-  const posts = await data.json();
-
-  return <ul>{posts.map(x => <li key={x.id}>{x.title}</li>)}</ul>;
-};
-
-export const Posts = asyncReactor(AsyncPosts, Loader);
+      return <ul>{result.map(x => <li key={x.id}>{x.title}</li>)}</ul>;
+    }}
+  </AsyncReactor>
+);
 ```
 
 ## Development

@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Test asyncReactor asyncReactor shouldrender loading and component 1`] = `"<div>Loading</div>"`;
+exports[`Test AsyncReactor AsyncReactor should handle error 1`] = `"<div>Loading</div>"`;
 
-exports[`Test asyncReactor asyncReactor shouldrender loading and component 2`] = `"<div>HomeScreen</div>"`;
+exports[`Test AsyncReactor AsyncReactor should handle error 2`] = `"<div>Error</div>"`;
 
-exports[`Test asyncReactor asyncReactor with error 1`] = `"<div>Loading</div>"`;
+exports[`Test AsyncReactor AsyncReactor should render loading and component 1`] = `"<div>Loading</div>"`;
 
-exports[`Test asyncReactor asyncReactor with error 2`] = `"<div>Error some error</div>"`;
+exports[`Test AsyncReactor AsyncReactor should render loading and component 2`] = `"<div>Home Screen some result</div>"`;

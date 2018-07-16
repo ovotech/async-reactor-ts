@@ -1,48 +1,51 @@
 import { mount } from 'enzyme';
 import * as React from 'react';
-import { asyncReactor } from '../src';
+import { AsyncReactor } from '../src';
 
-describe('Test asyncReactor', () => {
-  test('asyncReactor shouldrender loading and component', async () => {
-    const HomeScreen = () => <div>HomeScreen</div>;
-    const Loading = () => <div>Loading</div>;
+describe('Test AsyncReactor', () => {
+  test('AsyncReactor should render loading and component', async () => {
+    const asyncCondition = new Promise(resolve => setTimeout(() => resolve('some result'), 150));
+    const Home = (
+      <AsyncReactor loader={() => asyncCondition}>
+        {({ loading, result }) => {
+          if (loading) {
+            return <div>Loading</div>;
+          } else {
+            return <div>Home Screen {result}</div>;
+          }
+        }}
+      </AsyncReactor>
+    );
 
-    const asyncCondition = new Promise((resolve, reject) => setTimeout(() => resolve(), 150));
-
-    const asyncHome = asyncReactor(async () => {
-      await new Promise((resolve, reject) => setTimeout(() => resolve(), 150));
-      return <HomeScreen />;
-    }, Loading);
-
-    const component = mount(asyncHome);
+    const component = mount(Home);
 
     expect(component.html()).toMatchSnapshot();
 
-    await new Promise((resolve, reject) => setTimeout(() => resolve(), 200));
+    await new Promise(resolve => setTimeout(() => resolve(), 200));
     expect(component.html()).toMatchSnapshot();
   });
 
-  test('asyncReactor with error', async () => {
-    const HomeScreen = () => <div>HomeScreen</div>;
-    const Loading = () => <div>Loading</div>;
-    const ErrorScreen = ({ error }) => <div>Error {error.message}</div>;
-
-    const asyncCondition = new Promise((resolve, reject) => setTimeout(() => resolve(), 150));
-
-    const asyncHome = asyncReactor(
-      async () => {
-        await new Promise((resolve, reject) => setTimeout(() => resolve(), 150));
-        throw new Error('some error');
-        return <HomeScreen />;
-      },
-      Loading,
-      ErrorScreen,
+  test('AsyncReactor should handle error', async () => {
+    const asyncCondition = new Promise((resolve, reject) => setTimeout(() => reject(new Error('some error')), 150));
+    const Home = (
+      <AsyncReactor loader={() => asyncCondition}>
+        {({ loading, result, error }) => {
+          if (loading) {
+            return <div>Loading</div>;
+          } else if (error) {
+            return <div>Error</div>;
+          } else {
+            return <div>Home Screen {result}</div>;
+          }
+        }}
+      </AsyncReactor>
     );
 
-    const component = mount(asyncHome);
+    const component = mount(Home);
+
     expect(component.html()).toMatchSnapshot();
 
-    await new Promise((resolve, reject) => setTimeout(() => resolve(), 200));
+    await new Promise(resolve => setTimeout(() => resolve(), 200));
     expect(component.html()).toMatchSnapshot();
   });
 });

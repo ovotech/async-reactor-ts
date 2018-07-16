@@ -1,47 +1,36 @@
 import * as React from 'react';
 
+interface ChildrenProps {
+  result?: any;
+  loading: boolean;
+  error?: Error;
+}
+
 interface Props {
-  component: () => Promise<React.ReactElement<any>>;
-  loader?: React.ComponentType<any>;
-  error?: React.ComponentType<any>;
+  loader: () => Promise<any>;
+  children: (props: ChildrenProps) => JSX.Element;
 }
 
 interface State {
-  loaded: boolean;
+  loading: boolean;
   error?: Error;
-  component: React.ReactElement<any>;
+  result?: any;
 }
 
-class Reactor extends React.Component<Props, State> {
+export class AsyncReactor extends React.Component<Props, State> {
   state = {
-    component: null,
-    error: null,
-    loaded: false,
+    error: undefined,
+    loading: true,
+    result: undefined,
   };
 
   componentDidMount() {
     this.props
-      .component()
-      .then(component => this.setState({ loaded: true, component }), error => this.setState({ error }));
+      .loader()
+      .then(result => this.setState({ loading: false, result }), error => this.setState({ loading: false, error }));
   }
 
   render() {
-    if (this.state.loaded) {
-      return this.state.component;
-    }
-
-    if (!!this.state.error && this.props.error) {
-      const ErrorComponent = this.props.error;
-      return <ErrorComponent error={this.state.error} />;
-    }
-
-    const LoadingComponent = this.props.loader;
-    return <LoadingComponent />;
+    return this.props.children({ result: this.state.result, loading: this.state.loading, error: this.state.error });
   }
 }
-
-export const asyncReactor = (
-  component: () => Promise<React.ReactElement<any>>,
-  loader?: React.ComponentType<{}>,
-  error?: React.ComponentType<{ error: Error }>,
-): React.ReactElement<any> => <Reactor component={component} loader={loader} error={error} />;
