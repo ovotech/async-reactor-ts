@@ -1,4 +1,4 @@
-# async-reactor
+# async-reactor-ts
 
 Render async Stateless Functional Components, using Typescript
 
@@ -99,4 +99,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-Based on [async-reactor](https://github.com/xtuc/async-reactor/blob/master/README.md) project
+Based on [async-reactor](https://github.com/xtuc/async-reactor) project
