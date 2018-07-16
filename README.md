@@ -91,7 +91,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 - **Ivan Kerin** - _Initial work_ - [ivank](https://github.com/ivank)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/ovotech/async-reactor-ts/graphs/contributors) who participated in this project.
 
 ## License
 
