@@ -99,4 +99,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-Based on [async-reactor](https://github.com/xtuc/async-reactor) project
+Inspired by [async-reactor](https://github.com/xtuc/async-reactor) project
